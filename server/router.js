@@ -21,6 +21,6 @@ let redisMiddleware = (req, res, next) => {
 
 router
   .route('/search/:query')
-  .get(controller.get)
+  .get(redisMiddleware, controller.get)
 
 module.exports = router;
