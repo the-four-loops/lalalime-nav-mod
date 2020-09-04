@@ -4,7 +4,8 @@ class SearchResults extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      images: false
+      images: false,
+      suggestions: []
     }
   }
 
@@ -13,8 +14,6 @@ class SearchResults extends React.Component {
     if (!searchClicked) {
       return null;
     }
-
-    console.log(results);
 
     if (searchClicked && query.length >= 3) {
       return (
@@ -26,7 +25,7 @@ class SearchResults extends React.Component {
                 <div className="line"></div></div>
               <div className="sugg">
                 {results.map((result, index) => (
-                  <img className="sugg-img" name="popular1" key={index} src={result.images} onMouseOut={this.mouseOutImage} onMouseOver={this.mouseOverImage}></img>
+                  <img className="sugg-img" name="popular1" key={index} src='./images/pan1.png' onMouseOut={this.mouseOutImage} onMouseOver={this.mouseOverImage}></img>
                 ))}
                 <div className="title-name">
                   {results.map((result, index) => (
@@ -34,9 +33,11 @@ class SearchResults extends React.Component {
                   ))}</div></div>
             </div>
             <div className="word-suggest">
-              <div className="word">{suggestedOptions.map((suggest, index) => (
+              <div className="word">
+                {suggestedOptions.map((suggest, index) => (
                 <p className="word" key={index}>{suggest}</p>
-              ))}</div>
+              ))}
+              </div>
             </div>
           </div>
         </div>

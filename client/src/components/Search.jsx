@@ -2,11 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import SearchResults from './SearchResults.jsx';
 
-const suggestions = [
-  "pants", "track pants", "ABC pants", "women's pants", "men's pants", "girls pants",
-  "shirts", "long sleeve shirts", "short sleeve shirts", "men's long sleeve shirts", "men's shirts", "women's shirts",
-  "yellow shorts", "yellow swimsuits", "yellow tank tops"
-];
+// const suggestions = [
+//   "pants", "track pants", "ABC pants", "women's pants", "men's pants", "girls pants",
+//   "shirts", "long sleeve shirts", "short sleeve shirts", "men's long sleeve shirts", "men's shirts", "women's shirts",
+//   "yellow shorts", "yellow swimsuits", "yellow tank tops"
+// ];
 
 class Search extends React.Component {
   constructor(props) {
@@ -46,57 +46,108 @@ class Search extends React.Component {
     this.setState({ searchClicked: true });
   }
 
-  handleChange(event) {
-    this.setState({ query: event.target.value }, () => {
+  handleChange(e) {
+    this.setState({ query: e.target.value }, () => {
       if (this.state.query.length >= 3) {
-        this.suggestChange();
         this.getAll();
-      } else {
-        this.suggestChange();
       }
     });
   }
 
   getAll() {
+    let query = this.state.query;
+    if (query.includes('leg')) query = 'leggings';
     axios
-      .get('/api/search')
+      .get(`/api/search/${query}`)
       .then((response) => {
-        let array = []
-        for (var i = 0; i < response.data.length; i++) {
-          if (response.data[i].name.toLowerCase().includes(this.state.query) || response.data[i].color.toLowerCase().includes(this.state.query)) {
-            array.push(response.data[i])
-          }
-        }
-        // if (array.length !== 0) {
-        //   array = Object.values(array.reduce((accumulator, current) => {
-        //     if (!accumulator[current.image]) {
-        //       accumulator[current.image] = current;
-        //     }
-        //     return accumulator;
-        //   }, {})
-        //   );
-        array = array.slice(2, 6);
-        this.setState({ results: array })
-        // }
+        let portion = Math.floor(Math.random() * 5)
+        let data = response.data;
+        if (typeof data === 'string') data = JSON.parse(response.data);
+        this.setState({
+          results: data.slice(portion, portion + 4)
+        }, () => 
+        this.suggestChange())
       })
       .catch((err) => console.log(err))
   }
 
   suggestChange() {
-    let array = [];
-    for (var i = 0; i < suggestions.length; i++) {
-      if (!suggestions[i].includes(' ')) {
-        if (suggestions[i].slice(0, this.state.query.length) === this.state.query) {
-          array.push(suggestions[i])
+    let suggestions = [];
+    let queries = this.state.query.split(' ').filter(q => q !== "")
+    let options = this.state.results;
+    let example = options[0];
+    if (!options.length || queries[0].includes('2') || queries[0].includes('3')) {
+      this.setState({ suggestedOptions: [] })
+    } else {
+      if (queries.length === 1) {
+        let query = queries.join('');
+        if (example.gender.toLowerCase().includes(query.slice(0, -1))) {
+          suggestions.push(example.gender.slice(0, -2))
+          suggestions.push(`Outfits for ${example.gender.slice(0, -2)}`)
+          suggestions.push(`View All Men's + Women's Accessories`)
+          suggestions.push(`${example.gender} Sale`)
+          if (example.gender.includes("Wom")) {
+            suggestions.push(`${example.gender} Leggings`)
+          } else {
+            suggestions.push(`${example.gender} Loungewear`)
+          }
+          suggestions.push(`${example.gender} ${example.style}`)
         }
-      } else {
-        if (suggestions[i].includes(this.state.query)) {
-          array.push(suggestions[i])
+        if (example.color.toLowerCase().includes(query)) {
+          suggestions.push(`${example.color} Sale`)
+          suggestions.push(`${example.color} Loungewear`)
+          options.forEach(option => {
+            if (!suggestions.includes(`${option.color} ${option.style}`)) suggestions.push(`${option.color} ${option.style}`)
+          })
+        }
+        if (`${example.name}s`.toLowerCase().includes(query) || query === 'joggers' || query === 'shorts') {
+          if (query.includes('rac')) {
+            let name = example.name.split(' ').filter(word => word.toLowerCase().includes(query))
+            suggestions.push(`${name} Collection`)
+          } else {
+            suggestions.push(`${example.name.slice(0, -2)} Collection`)
+          }
+        }
+        if (example.style.toLowerCase().includes(query)) {
+          suggestions.push(`Mens ${example.style}`)
+          suggestions.push(`Womens ${example.style}`)
+        }
+      } else if (queries.length === 2){
+        if (example.gender.toLowerCase().includes(queries[1].slice(0, -1)) || example.color.toLowerCase().includes(queries[1])) {
+          [queries[0], queries[1]] = [queries[1], queries[0]];
+        }
+        if (example.gender.toLowerCase().includes(queries[0].slice(0, -1))) {
+          if (example.color.toLowerCase().includes(queries[1]) || queries[1].includes('2') || queries[1].includes('3')) {
+            suggestions.push('')
+          }
+          if (example.style.toLowerCase().includes(queries[1]) || queries[1] === 'joggers' || queries[1] === 'shorts' || queries[1].includes('t')) {
+            options.forEach(opt => {
+              let name = opt.name.split(' ').filter(word => !word.includes('2') && !word.includes('3')).join(' ')
+              if (!suggestions.includes(`${example.gender} ${name}`)) {
+                suggestions.push(`${example.gender} ${name}`)
+              }
+            })
+          }
+          if (`${example.name}s`.toLowerCase().includes(queries[1]) || queries[1] === 'joggers' || queries[1] === 'shorts') {
+            if (queries[1].includes('ra')) {
+              let name = example.name.split(' ').filter(word => word.toLowerCase().includes(queries[1]) && !word.includes('2') && !word.includes('3'))
+              suggestions.push(`${example.gender} ${name} Collection`)
+            } else {
+              let name = example.name.split(' ').filter(word => !word.includes('2') && !word.includes('3')).join(' ')
+              suggestions.push(`${example.gender} ${name} Collection`)
+            }
+          }
+        }
+        if (example.color.toLowerCase().includes(queries[0])) {
+          options.forEach(option => {
+            if (!suggestions.includes(`${option.color} ${option.style}`)) suggestions.push(`${option.color} ${option.style}`)
+          })
         }
       }
+      this.setState({
+        suggestedOptions: suggestions
+      }, () => console.log(suggestions))
     }
-    array = array.slice(0)
-    this.setState({ suggestedOptions: array })
   }
 
   render() {

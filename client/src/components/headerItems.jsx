@@ -4,11 +4,11 @@ const headerItems = [
     subHeaders: [
       {
         title: 'TOPS',
-        related: ['Tank Tops', 'Dresses', 'Short Sleeve Shirts', 'Long Sleeve Shirts', 'Sweaters', 'Sweaters', 'Hoodies + Sweatshirts', 'Jackets + Coats', 'Swimsuits']
+        related: ['Tank Tops', 'Dresses', 'Short Sleeve Shirts', 'Long Sleeve Shirts', 'Sweaters', 'Hoodies + Sweatshirts', 'Jackets + Coats', 'Swimsuits']
       },
       {
         title: 'BOTTOMS',
-        related: ['Pants', 'Capris', 'Shorts', 'Skirts']
+        related: ['Leggings', 'Pants', 'Capris', 'Shorts', 'Skirts']
       },
       {
         title: 'BRAS + UNDERWEAR',
@@ -58,7 +58,7 @@ const headerItems = [
       },
       {
         title: '',
-        related: ['Long Sleeve Shirt', 'Sweatshirts + Hoodies', 'Jackets + Coats', 'Swimsuits']
+        related: ['Long Sleeve Shirt', 'Hoodies + Sweatshirts', 'Jackets + Coats', 'Swimsuits']
       },
       {
         title: 'BOTTOMS',

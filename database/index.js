@@ -1,6 +1,7 @@
-const db = require('../database/indexGres.js')
+const db = require('./indexGres.js');
+const faker = require('faker')
 
-const makeQuery = (queries) => {
+const makeQuery = (...queries) => {
   let queryStr = 'select gender, color, style, name, image, item from ';
   const stackQuery = (q, count) => {
     let opening = `(select * from `
@@ -14,23 +15,23 @@ const makeQuery = (queries) => {
   }
   if (queries.length === 1) {
     let query = queries.join('');
-    return queryStr + `clothes where cloth_indx_col @@ to_tsquery('${query}:*') and item > 9999000 limit 10`;
+    return queryStr + `clothes where cloth_indx_col @@ to_tsquery('${query}:*') and item > 9999900 limit 10`;
   }
   return queryStr += `${stackQuery(queries.slice(0, -1), queries.length - 2)} where cloth_indx_col @@ to_tsquery('${queries[queries.length - 1]}:*') limit 10;`;
 }
+  
+  // console.log(makeQuery('womens', 'capris'))
+// console.log(faker.commerce.productAdjective())
 
-const controller = {
-  get: (req, res) => {
-    let { query } = req.params;
-    let queryStr = makeQuery(query.split(' '));
-    db.query(queryStr, (err, result) => {
-      if (err) {
-        res.status(404).send(err);
-      } else {
-        res.status(200).send(result.rows);
-      }
-    })
+const randomStrings = () => {
+  let alphabet = '';
+  for(var i = 10; i < 36; i++){
+      alphabet += i.toString(36)
   }
+  let index = (Math.floor(Math.random() * 21));
+  return alphabet.slice(index, index + 1 + Math.ceil(Math.random() * 2))
 }
 
-module.exports = controller;
+for (var i = 0; i < 50; i++) {
+  console.log(`${randomStrings()}`);
+}
