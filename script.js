@@ -6,7 +6,7 @@ export let options = {
     { duration: '10s', target: 50 }, // below normal load
     { duration: '30s', target: 200 },
     { duration: '30s', target: 500 }, // spike to 1400 users
-    { duration: '30s', target: 800 }, // stay at 1400 for 3 minutes
+    { duration: '30s', target: 1000 }, // stay at 1400 for 3 minutes
     { duration: '10s', target: 500 }, // scale down. Recovery stage.
     { duration: '10s', target: 200 },
     { duration: '10s', target: 0 },

@@ -63,6 +63,7 @@ class Search extends React.Component {
         let portion = Math.floor(Math.random() * 5)
         let data = response.data;
         if (typeof data === 'string') data = JSON.parse(response.data);
+        console.log(data)
         this.setState({
           results: data.slice(portion, portion + 4)
         }, () => 

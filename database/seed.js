@@ -126,18 +126,89 @@ const accessoryType = (gender, style) => {
 }
 
 const addImages = (product) => {
-  if (product.color === 'Yellow') {
-    let index = Math.floor(Math.random() * Math.floor(yellowImages.length));
-    product.image = yellowImages[index];
-  } else if (product.name.includes('Shirt')) {
-    let index = Math.floor(Math.random() * Math.floor(shirtsImages.length));
-    product.image = shirtsImages[index];
-  } else if (product.name.includes('Racerback')) {
-    let index = Math.floor(Math.random() * Math.floor(shirtsImages.length));
-    product.image = shirtsImages[index];
-  } else {
-    let index = Math.floor(Math.random() * Math.floor(pantsImages.length));
-    product.image = pantsImages[index];
+  if (product.color === 'Red' || product.color === 'Maroon' || product.color === 'Orange') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/red/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/red/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/red/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
+  }
+  if (product.color === 'Orchid' || product.color === 'Perriwinkle' || product.color === 'Lavender' 
+  || product.color === 'Plum' || product.color === 'Violet' || product.color === 'Magenta' || product.color === 'Purple') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/purple/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/purple/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/purple/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
+  }
+  if (product.color === 'Fuchsia' || product.color === 'Pink' || product.color === 'Rustic Coral' 
+  || product.color === 'Salmon') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/pink/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/pink/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/pink/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
+  }
+  if (product.color === 'Blue' || product.color === 'Azure' || product.color === 'Cyan' || product.color === 'Teal' || product.color === 'Turquoise' 
+  || product.color === 'Sky blue' || product.color === 'True Navy' || product.color === 'Indigo' || product.color === 'Chambray') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/blue/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/blue/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/blue/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
+  }
+  if (product.color === 'Yellow' || product.color === 'Gold' || product.color === 'Tan') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/yellow/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/yellow/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/yellow/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
+  }
+  if (product.color === 'Mint green' || product.color === 'Green' || product.color === 'Lime' || product.color === 'Olive') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/green/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/green/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/green/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
+  }
+  if (product.color === 'White' || product.color === 'Ivory') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/white/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/white/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/white/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
+  }
+  if (product.color === 'Silver' || product.color === 'Grey') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/grey/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/grey/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/grey/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
+  }
+  if (product.color === 'Black') {
+    if (tops[product.gender].styles.includes(product.style)) {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/black/${product.gender}/tops/${Math.ceil(Math.random() * 5)}.png`
+    } else if (bottoms[product.gender].styles.includes(product.style)) {
+     product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/black/${product.gender}/bottoms/${Math.ceil(Math.random() * 5)}.png`
+    } else {
+      product.image = `https://lalagres.s3-us-west-1.amazonaws.com/images/black/${product.gender}/accessories/${Math.ceil(Math.random() * 5)}.png`
+    }
   }
   return product;
 };
@@ -217,4 +288,4 @@ function clothingFactory(writer, encoding, callback) {
   write()
 }
 
-// clothingFactory(makeClothes, 'utf-8', () => makeClothes.end())
+clothingFactory(makeClothes, 'utf-8', () => makeClothes.end())

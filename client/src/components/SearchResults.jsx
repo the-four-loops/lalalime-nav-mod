@@ -25,7 +25,7 @@ class SearchResults extends React.Component {
                 <div className="line"></div></div>
               <div className="sugg">
                 {results.map((result, index) => (
-                  <img className="sugg-img" name="popular1" key={index} src='./images/pan1.png' onMouseOut={this.mouseOutImage} onMouseOver={this.mouseOverImage}></img>
+                  <img className="sugg-img" name="popular1" key={index} src={result.image} onMouseOut={this.mouseOutImage} onMouseOver={this.mouseOverImage}></img>
                 ))}
                 <div className="title-name">
                   {results.map((result, index) => (

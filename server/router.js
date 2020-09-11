@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const controller = require('./controller.js');
-const redis = require('redis')
-const client = redis.createClient();
+// const redis = require('redis')
+// const client = redis.createClient();
 
 let redisMiddleware = (req, res, next) => {
   let key = "__expIress__" + req.originalUrl || req.url;
@@ -21,6 +21,6 @@ let redisMiddleware = (req, res, next) => {
 
 router
   .route('/search/:query')
-  .get(redisMiddleware, controller.get)
+  .get(controller.get)
 
 module.exports = router;

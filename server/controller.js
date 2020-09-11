@@ -4,7 +4,7 @@ const makeQuery = (queries) => {
   let queryStr = 'select gender, color, style, name, image, item from ';
   const stackQuery = (q, count) => {
     let opening = `(select * from `
-    let closing = `clothes where cloth_indx_col @@ to_tsquery('${q[0]}:*') order by item desc limit 3950) as query${count}`;
+    let closing = `clothes where cloth_indx_col @@ to_tsquery('${q[0]}:*') and item > 9999000) as query${count}`;
     let wrapping = `where cloth_indx_col @@ to_tsquery('${q[count] + ':*'}')) as query${count}`;
     if (count === 0) {
       return `(select * from ${closing}`;
